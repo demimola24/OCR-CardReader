@@ -11,7 +11,7 @@ import dagger.Component
 //CardReader
 
 @Singleton
-@Component(modules = [CardReaderModule::class, CardReaderDaggerServiceModule::class, CardReaderRetrofitModule::class])
+@Component(modules = [CardReaderDaggerModule::class, CardReaderDaggerServiceModule::class, CardReaderRetrofitModule::class])
 interface CardReaderDaggerComponent {
 
     /* Activities */

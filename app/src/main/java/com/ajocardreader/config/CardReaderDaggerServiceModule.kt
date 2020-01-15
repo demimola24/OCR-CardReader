@@ -14,7 +14,7 @@ object CardReaderDaggerServiceModule {
 
     @Provides
     @Singleton
-    internal fun provideCardReaderApiService(retrofitInstance: Retrofit): CardReaderApiService {
+     fun provideCardReaderApiService(retrofitInstance: Retrofit): CardReaderApiService {
         return retrofitInstance.create(CardReaderApiService::class.java)
     }
 

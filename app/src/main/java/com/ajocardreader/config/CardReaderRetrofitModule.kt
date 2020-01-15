@@ -1,7 +1,4 @@
 package com.ajocardreader.config
-
-import android.content.Context
-
 import com.ajocardreader.constants.AppConstants
 import java.util.concurrent.TimeUnit
 
@@ -18,7 +15,7 @@ object CardReaderRetrofitModule {
 
     @Singleton
     @Provides
-    internal fun provideRetrofit(): Retrofit {
+     fun provideRetrofit(): Retrofit {
 
         val okHttpClient = OkHttpClient.Builder()
             .readTimeout(30, TimeUnit.SECONDS)

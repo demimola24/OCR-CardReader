@@ -1,8 +1,7 @@
 package com.ajocardreader.datasource.repository
 
-import CardVerificationResponse
+import com.ajocardreader.models.CardVerificationResponse
 import com.ajocardreader.datasource.CardReaderApiService
-import com.ajocardreader.models.apimodels.ApiResponse
 import io.reactivex.Single
 
 import retrofit2.Call;
@@ -10,33 +9,25 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import javax.inject.Inject
 
-class Repository {
+open class Repository
+@Inject constructor(private val cardReaderApiService: CardReaderApiService) {
 
-    private lateinit var cardReaderApiService: CardReaderApiService
-
-    @Inject
-    fun Repository(cardReaderApiService: CardReaderApiService){
-        this.cardReaderApiService = cardReaderApiService
-    }
-
-
-    fun getCardDetails(cardNumber: String): Single<ApiResponse<CardVerificationResponse>> {
-        return Single.create<ApiResponse<CardVerificationResponse>> { emitter ->
+    open fun getCardDetails(cardNumber: String): Single<CardVerificationResponse> {
+        return Single.create<CardVerificationResponse> { emitter ->
             cardReaderApiService.getCardDetails(cardNumber)
-                .enqueue(object : Callback<ApiResponse<CardVerificationResponse>> {
+                .enqueue(object : Callback<CardVerificationResponse> {
                     override fun onResponse(
-                        call: Call<ApiResponse<CardVerificationResponse>>,
-                        response: Response<ApiResponse<CardVerificationResponse>>
+                        call: Call<CardVerificationResponse>,
+                        response: Response<CardVerificationResponse>
                     ) {
-                            emitter.onSuccess(ApiResponse.processApiResponse(response) as ApiResponse<CardVerificationResponse>)
-
+                            emitter.onSuccess(response.body()!!)
                     }
 
                     override fun onFailure(
-                        call: Call<ApiResponse<CardVerificationResponse>>,
+                        call: Call<CardVerificationResponse>,
                         t: Throwable
                     ) {
-                        emitter.onSuccess(ApiResponse.createErrorResponse(t.message) as ApiResponse<CardVerificationResponse>)
+                        emitter.onError(t)
                     }
 
                 })

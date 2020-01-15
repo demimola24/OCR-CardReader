@@ -1,42 +1,47 @@
 package com.ajocardreader.viewmodel
 
-import CardVerificationResponse
 import android.annotation.SuppressLint
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.ajocardreader.config.CardReaderDaggerComponent
 import com.ajocardreader.datasource.repository.Repository
+import com.ajocardreader.models.CardVerificationResponse
 import io.reactivex.functions.Consumer
-import java.io.Serializable
 import javax.inject.Inject
 
 
-class MainActivityViewModel : ViewModel(), Serializable, CardReaderDaggerComponent.Injectable {
+open class MainActivityViewModel
+@Inject internal constructor(val repository: Repository) : ViewModel(), CardReaderDaggerComponent.Injectable
+{
 
-    //private val cardVerificationEvent = MutableLiveData<CardVerificationResponse>()
+     val cardVerificationDetailEvent = MutableLiveData<CardVerificationResponse>()
+     val progressEvent = MutableLiveData<Boolean>()
+     val errorEvent = MutableLiveData<String>()
 
-    @Inject
-    var repository: Repository? = null
+    fun getCardVerificationEvent() = cardVerificationDetailEvent
+
+    fun getProgress() = progressEvent
+
+    fun getErrorMessageEvent() = errorEvent
 
 
-    override 
+    override
     fun inject(cardReaderDaggerComponent: CardReaderDaggerComponent) {
         cardReaderDaggerComponent.inject(this)
     }
 
 
     @SuppressLint("CheckResult")
-    fun getCardDetails(cardDetails: String): LiveData<CardVerificationResponse> {
-        val responseLiveData = MutableLiveData<CardVerificationResponse>()
-        repository?.getCardDetails(cardDetails)
-            ?.subscribe(Consumer<CardVerificationResponse> { businessApiResponse ->
-                responseLiveData.postValue(
-                    businessApiResponse
-                )
-            })
+    open fun getCardDetails(cardDetails: String) {
+        repository.getCardDetails(cardDetails)
+            .subscribe{ businessApiResponse,throwable ->
+                if (throwable != null) {
+                    errorEvent.postValue(throwable.message)
+                    return@subscribe
+                }
+                cardVerificationDetailEvent.postValue(businessApiResponse)
+            }
 
-        return responseLiveData
     }
 
 }

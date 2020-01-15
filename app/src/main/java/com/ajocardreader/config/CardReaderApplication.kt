@@ -12,7 +12,7 @@ class CardReaderApplication : Application() {
     override fun onCreate() {
         super.onCreate()
         daggerComponent = DaggerCardReaderDaggerComponent.builder()
-            .cardReaderModule(CardReaderModule(this))
+            .cardReaderDaggerModule(CardReaderDaggerModule(this))
             .build()
 
         cardReaderViewModelFactory = CardReaderViewModelFactory(this)
