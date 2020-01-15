@@ -1,47 +1,45 @@
 package com.ajocardreader.datasource.repository
 
 import CardVerificationResponse
-import android.util.Log
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.LiveData
 import com.ajocardreader.datasource.CardReaderApiService
-import com.ajocardreader.datasource.RetrofitRequest
+import com.ajocardreader.models.apimodels.ApiResponse
 import io.reactivex.Single
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import javax.inject.Inject
 
-class ArticleRepository {
+class Repository {
 
-    private val cardReaderApiService: CardReaderApiService
+    private lateinit var cardReaderApiService: CardReaderApiService
 
-    init {
-        cardReaderApiService = RetrofitRequest.retrofitInstance!!.create<CardReaderApiService>(CardReaderApiService::class.java!!)
+    @Inject
+    fun Repository(cardReaderApiService: CardReaderApiService){
+        this.cardReaderApiService = cardReaderApiService
     }
 
 
-    fun getCardDetails(cardNumber: String): Single<CardVerificationResponse> {
-        return Single.create<CardVerificationResponse> { emitter ->
+    fun getCardDetails(cardNumber: String): Single<ApiResponse<CardVerificationResponse>> {
+        return Single.create<ApiResponse<CardVerificationResponse>> { emitter ->
             cardReaderApiService.getCardDetails(cardNumber)
-                .enqueue(object : Callback<CardVerificationResponse> {
+                .enqueue(object : Callback<ApiResponse<CardVerificationResponse>> {
                     override fun onResponse(
-                        call: Call<CardVerificationResponse>,
-                        response: Response<CardVerificationResponse>
+                        call: Call<ApiResponse<CardVerificationResponse>>,
+                        response: Response<ApiResponse<CardVerificationResponse>>
                     ) {
-                        response.body()?.let {
-                            emitter.onSuccess(it)
-                        }
+                            emitter.onSuccess(ApiResponse.processApiResponse(response) as ApiResponse<CardVerificationResponse>)
+
                     }
 
-                    override fun onFailure(call: Call<CardVerificationResponse>, t: Throwable) {
-                        emitter.onError(t)
+                    override fun onFailure(
+                        call: Call<ApiResponse<CardVerificationResponse>>,
+                        t: Throwable
+                    ) {
+                        emitter.onSuccess(ApiResponse.createErrorResponse(t.message) as ApiResponse<CardVerificationResponse>)
                     }
+
                 })
         }
-    }
-
-    companion object {
-        private val TAG = ArticleRepository::class.java.simpleName
     }
 }
