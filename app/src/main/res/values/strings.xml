@@ -8,4 +8,5 @@
     <string name="country">COUNTRY</string>
     <string name="bank">BANK</string>
     <string name="brand">BRAND</string>
+    <string name="scan_card">Scan Card</string>
 </resources>

@@ -31,6 +31,6 @@ data class Bank (
 
 	val name : String,
 	val url : String,
-	val phone : Int,
+	val phone : String,
 	val city : String
 )

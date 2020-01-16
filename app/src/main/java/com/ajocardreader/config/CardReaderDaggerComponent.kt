@@ -11,15 +11,11 @@ import dagger.Component
 //CardReader
 
 @Singleton
-@Component(modules = [CardReaderDaggerModule::class, CardReaderDaggerServiceModule::class, CardReaderRetrofitModule::class])
+@Component(modules = [CardReaderDaggerModule::class, CardReaderDaggerServiceModule::class, CardReaderRetrofitModule::class,ViewModelModule::class])
 interface CardReaderDaggerComponent {
 
     /* Activities */
     fun inject(launcherActivity: MainActivity)
-
-    /* MainActivityViewModel */
-    fun inject(mainActivityViewModel: MainActivityViewModel)
-
 
     interface Injectable {
         fun inject(cardReaderDaggerComponent: CardReaderDaggerComponent)

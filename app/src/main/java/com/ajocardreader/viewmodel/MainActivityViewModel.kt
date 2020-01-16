@@ -11,7 +11,7 @@ import javax.inject.Inject
 
 
 open class MainActivityViewModel
-@Inject internal constructor(val repository: Repository) : ViewModel(), CardReaderDaggerComponent.Injectable
+@Inject internal constructor(val repository: Repository) : ViewModel()
 {
 
      val cardVerificationDetailEvent = MutableLiveData<CardVerificationResponse>()
@@ -24,11 +24,6 @@ open class MainActivityViewModel
 
     fun getErrorMessageEvent() = errorEvent
 
-
-    override
-    fun inject(cardReaderDaggerComponent: CardReaderDaggerComponent) {
-        cardReaderDaggerComponent.inject(this)
-    }
 
 
     @SuppressLint("CheckResult")
