@@ -14,15 +14,9 @@ import org.mockito.Mock
 import com.ajocardreader.datasource.CardReaderApiService
 import io.reactivex.Single
 import junit.framework.Assert.assertTrue
-import kotlinx.coroutines.async
-import kotlinx.coroutines.runBlocking
 import org.mockito.Mockito.*
 import org.mockito.MockitoAnnotations
 import org.mockito.Mockito.`when`
-import org.mockito.Mockito.`when`
-
-
-
 
 
 

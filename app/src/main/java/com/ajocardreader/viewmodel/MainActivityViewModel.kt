@@ -33,6 +33,7 @@ open class MainActivityViewModel
 
     @SuppressLint("CheckResult")
     open fun getCardDetails(cardDetails: String) {
+        progressEvent.postValue(true)
         repository.getCardDetails(cardDetails)
             .subscribe{ businessApiResponse,throwable ->
                 if (throwable != null) {

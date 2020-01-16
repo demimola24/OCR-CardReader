@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:padding="16dp"
+    android:orientation="vertical"
+    android:gravity="center_horizontal"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".ui.MainActivity"
@@ -11,10 +14,202 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:text="@string/card_reader"
+        android:layout_marginBottom="16dp"
+        android:textSize="14sp" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/edCardHolder"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/card_number"
+        app:passwordToggleContentDescription="Hide or show password">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edCard"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:focusable="true"
+            android:textSize="14sp" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnVerify"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginTop="16dp"
+        android:elevation="2dp"
+        android:layout_marginBottom="16dp"
+        android:text="@string/verify"
+        android:textAllCaps="true"
+        android:textSize="14sp" />
+
+
+
+   <RelativeLayout
+       android:layout_width="match_parent"
+       android:layout_weight="1"
+       android:gravity="center"
+       android:layout_height="0dp">
+
+       <LinearLayout
+           android:id="@+id/infoWrapper"
+           android:layout_width="match_parent"
+           android:orientation="vertical"
+           android:gravity="start"
+           android:visibility="visible"
+           android:layout_height="match_parent">
+
+           <LinearLayout
+               android:layout_width="match_parent"
+               android:baselineAligned="true"
+               android:orientation="horizontal"
+               android:layout_height="wrap_content">
+
+
+               <LinearLayout
+                   android:id="@+id/NetworkWrapper"
+                   android:layout_height="wrap_content"
+                   android:orientation="vertical"
+                   android:gravity="start"
+                   android:layout_weight="1"
+                   android:layout_width="0dp">
+
+                   <TextView
+                       android:text="@string/scheme_network"
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       />
+
+                   <TextView
+                       android:id="@+id/tvNetwork"
+                       android:layout_width="wrap_content"
+                       tools:text="MASTER CARD"
+                       android:textStyle="bold"
+                       android:layout_marginTop="8dp"
+                       android:layout_height="wrap_content"
+                       android:textSize="14sp" />
+               </LinearLayout>
+
+               <LinearLayout
+                   android:id="@+id/CountryWrapper"
+                   android:layout_height="wrap_content"
+                   android:orientation="vertical"
+                   android:gravity="start"
+                   android:layout_weight="1"
+                   android:layout_width="0dp">
+
+                   <TextView
+                       android:text="@string/country"
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       />
+
+                   <TextView
+                       android:id="@+id/tvCountry"
+                       android:layout_width="wrap_content"
+                       tools:text="Czechia"
+                       android:textStyle="bold"
+                       android:layout_marginTop="8dp"
+                       android:layout_height="wrap_content"
+                       android:textSize="14sp" />
+               </LinearLayout>
+
+           </LinearLayout>
+
+           <LinearLayout
+               android:layout_width="match_parent"
+               android:orientation="horizontal"
+               android:layout_marginTop="16dp"
+               android:layout_height="wrap_content">
+
+
+               <LinearLayout
+                   android:id="@+id/BrandWrapper"
+                   android:layout_height="wrap_content"
+                   android:orientation="vertical"
+                   android:gravity="start"
+                   android:layout_weight="1"
+                   android:layout_width="0dp">
+
+                   <TextView
+                       android:text="@string/brand"
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       />
+
+                   <TextView
+                       android:id="@+id/tvBrand"
+                       android:layout_width="wrap_content"
+                       tools:text="Credit Immediate Debit"
+                       android:textStyle="bold"
+                       android:layout_marginTop="8dp"
+                       android:layout_height="wrap_content"
+                       android:textSize="14sp" />
+               </LinearLayout>
+
+               <LinearLayout
+                   android:id="@+id/BankWrapper"
+                   android:layout_height="wrap_content"
+                   android:orientation="vertical"
+                   android:gravity="start"
+                   android:layout_weight="1"
+                   android:layout_width="0dp">
+
+                   <TextView
+                       android:text="@string/bank"
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       />
+
+                   <TextView
+                       android:id="@+id/tvBank"
+                       android:layout_width="wrap_content"
+                       tools:text="CESKOSLOVENSKA"
+                       android:textStyle="bold"
+                       android:layout_marginTop="8dp"
+                       android:layout_height="wrap_content"
+                       android:textSize="14sp" />
+               </LinearLayout>
+
+           </LinearLayout>
+
+       </LinearLayout>
+
+       <LinearLayout
+           android:id="@+id/progressWrapper"
+           android:layout_width="match_parent"
+           android:gravity="center"
+           android:visibility="gone"
+           android:layout_height="match_parent">
+
+           <ProgressBar
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"/>
+
+       </LinearLayout>
+
+       <LinearLayout
+           android:id="@+id/errorWrapper"
+           android:layout_width="match_parent"
+           android:gravity="center"
+           android:visibility="gone"
+           android:layout_height="match_parent">
+
+           <TextView
+               android:id="@+id/tvError"
+               android:layout_width="wrap_content"
+               tools:text="Card Not Found!"
+               android:textStyle="bold"
+               android:layout_marginTop="8dp"
+               android:layout_height="wrap_content"
+               android:textSize="18sp" />
+
+       </LinearLayout>
+
+
+
+   </RelativeLayout>
+
+</LinearLayout>
