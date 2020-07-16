@@ -13,3 +13,5 @@ This application displayes the following applications
 
 UI inspired from google search :)
 
+<img src="https://github.com/demimola24/OCR-CardReader/blob/master/screen.png" width="300" height="530">
+
